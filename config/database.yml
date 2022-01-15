@@ -3,10 +3,10 @@ default: &default
   encoding: unicode
   database: desafio_ninja_devel
   pool: 5
-  host: postgres
+  host: localhost
   timeout: 5000
-  username: <%= 'postgres' %>
-  password: <%= 'password' %>
+  username: <%= 'rails' %>
+  password: <%= '1q2w3e' %>
   port: 5432
 
 development:
