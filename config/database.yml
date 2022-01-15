@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  database: desafio_ninja_devel
+  pool: 5
+  host: postgres
+  timeout: 5000
+  username: <%= 'postgres' %>
+  password: <%= 'password' %>
+  port: 5432
+
+development:
+ <<: *default
+ database:  desafio_ninja_devel
+
+test:
+ <<: *default
+database: desafio_ninja_test
+
+production:
+ <<: *default
+ database: desafio_ninja
