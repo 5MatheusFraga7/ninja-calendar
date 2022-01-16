@@ -1,0 +1,146 @@
+label {
+    color: #5c5470; 
+}
+
+.header_calendar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    display: flex;
+    justify-content: space-evenly;
+    background: #dbd8e3;
+}
+
+.label_month_year {
+    font-size: 19px;
+    color: #5c5470;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.container_calendar {
+    position: relative;
+    background: #dbd8e3;
+    display: flex;
+    justify-content: space-around;
+    padding: 100px;
+    padding-top: 20px;
+}
+
+.rows {
+    position: relative;
+    margin: 5px;
+    width: 100%;
+    font-size: 22px;
+    color: #5c5470;
+    font-weight: 600;
+}
+
+.week_day {
+    margin-top: 10px;
+    background: aliceblue;
+    width: 100%;
+    display: block;
+    height: 120px;
+    font-size: 15px;
+    color: #5c5470;
+    box-shadow: rgb(8 7 7 / 98%) 0px 0px 1px, rgb(0 0 0 / 18%) 1px 1px 4px 0px;
+    cursor: pointer;
+}
+
+.date_label {
+    width: auto;
+    position: relative;
+    font-size: 30px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.current_day {
+
+    background: #5c547038;
+
+}
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 60%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  .modal_content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+  }
+
+  .modal_header {
+    position: relative;
+    width: 100%;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    color:  #5c5470;
+  
+}
+
+.modal_meeting_content {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.label_title_meeting {
+
+
+}
+
+.input_title_meeting {
+    margin: 5px;
+}
+
+.rooms_container {
+    position: relative;
+    background: #dbd8e3;
+    margin: 3px;
+    border-radius: 5px;
+    width: 400px;
+    flex-direction: row;
+    display: flex;
+    height: auto;
+    margin-left: 5px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.rooms {
+    width: 116px;
+    margin: 10px;
+    position: relative;
+    height: 40px;
+    background: #5c5470;
+}
+
+.btn_save_contaianer {
+    justify-content: end;
+    display: flex;
+}
+
+.btn_save_meeting {
+    background: #5c5470;
+}

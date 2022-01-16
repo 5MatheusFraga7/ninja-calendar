@@ -1,0 +1,20 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  Monday: ""
+  Tuesday: ""
+  Wednesday: ""
+  Thursday: ""
+  Friday: ""
+  Saturday: ""
+  Sunday: ""
+
+  en:
+  Mon: "Segunda-Feira"
+  Tues: "Terça-Feira"
+  Wed: "Quarta-Feira"
+  Thur: "Quinta-Feira"
+  Fri: "Sexta-Feira"
+  Sat: "Sábado"
+  Sun: "Domingo"
