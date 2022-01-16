@@ -1,7 +1,8 @@
 
-function Calendar(date_to_calendar) {
+function Calendar(date_to_calendar, meetings_in_month) {
 
-    this.date_to_calendar = date_to_calendar;
+    this.date_to_calendar  = date_to_calendar;
+    this.meetings_in_month = meetings_in_month;
 
     this.create();
 
