@@ -1,10 +1,9 @@
 FactoryGirl.define do 
     factory :meeting do 
-        id { Faker::Number.decimal_part(digits: 2) }
 		title { Faker::Lorem.sentence }
 		description { Faker::Lorem.paragraph }
-        starts_at { Faker::Date.forward }
-        ends_at  { Faker::Date.forward }
+        starts_at { Faker::Time.between(from: Time.now.beginning_of_day + 9.hour, to: Time.now.beginning_of_day + 18.hour) }
+        ends_at  { Faker::Time.between(from: Time.now.beginning_of_day + 9.hour, to: Time.now.beginning_of_day + 18.hour) }
         room_id 1
 	end
 end
