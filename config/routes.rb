@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: {format: :json}, path: '/api/v1/' do 	
   	namespace :v1, path: '/' do
-		resources :manager_calendar, only: [:index]	    
+		  resources :manager_calendar, only: [:index, :show, :create]	    
   	end
   end 
 

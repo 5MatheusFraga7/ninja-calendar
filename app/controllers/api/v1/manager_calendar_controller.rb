@@ -13,10 +13,55 @@ class Api::V1::ManagerCalendarController < ApplicationController
 
 	def show
 
+		if	(params[:id].present? && params[:id].is_a?(Integer)) 
+
+			meet = Meeting.where("id="+params[:id].to_s).first
+
+			if (meet.present?) 
+
+				render json: { meet: meet }, status: 200
+
+			else
+
+				render json: { status: 'meeting_not_found' }, status: 404
+
+			end
+			
+		else
+ 
+			render json: { error: 'id_not_found' }, status: 400
+
+		end
+
 	end
 
 	def create 
 
+		if (params[:title].present? && params[:room_id].present? && params[:starts_at].present? && params[:ends_at].present?)  
+			
+			meet = Meeting.new
+			
+			meet.title   = params[:title]
+			meet.room_id = params[:room_id].to_i
+
+			meet.starts_at = Time.parse(params[:starts_at].to_s)
+			meet.ends_at   = Time.parse(params[:ends_at].to_s)
+
+			if (meet.save)
+
+				render json: { meet: meet }, status: 201
+
+			else
+
+				render json: { status: 'saving_error', errors: meet.errors.full_messages }, status: 500
+
+			end
+
+		else
+
+			render json: { error: 'missing_params' }, status: 400
+
+		end
 
 	end
 
