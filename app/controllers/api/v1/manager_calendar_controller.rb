@@ -117,6 +117,20 @@ class Api::V1::ManagerCalendarController < ApplicationController
 
 	def destroy 
 
+		meet = Meeting.find(params[:id])
+
+		if (meet.destroy)
+
+			head 204
+
+		else
+
+			puts meet.errors.full_messages
+
+			render json: { errors: meet.errors }, status: 400 				
+
+		end 
+		
 	end
 
 end

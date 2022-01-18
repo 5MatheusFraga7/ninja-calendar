@@ -45,7 +45,7 @@ RSpec.describe "Manager calendar API", type: :request do
 
     end  
     
-    describe 'PUT /manager_calendar' do 
+    describe 'PUT /id manager_calendar' do 
 
 		before do 
 			put "/api/v1/manager_calendar/#{Meeting.first.id}", params: { meet: { title: 'New Meeting Title', starts_at: Time.now.beginning_of_day + 15.hour } }
@@ -55,7 +55,33 @@ RSpec.describe "Manager calendar API", type: :request do
             expect(response).to have_http_status(200)
         end    
 
+        it 'updates the meet in the database' do 
+            expect(Meeting.find_by(title: 'New Meeting Title')).not_to be_nil
+        end
+
+        it 'dont updates out of busines hour' do 
+            meeting = Meeting.first
+            expect(((meeting.starts_at.wday) != 5 && (meeting.starts_at.wday) != 6 && (meeting.starts_at.hour.between?(9, 18)) && (meeting.ends_at.hour.between?(9, 18)))).to be_truthy 
+        end
+
 	end  
 
+    describe 'DESTROY/id manager_calendar' do 
+
+        let(:meet_id) { Meeting.first.id }
+
+		before do 
+			delete "/api/v1/manager_calendar/#{meet_id}"
+		end
+
+		it 'status code is 204' do 
+			expect(response).to have_http_status(204)
+		end
+
+		it 'removes the meeting from the database' do 
+			expect(Meeting.where(id: meet_id).first).to be_nil
+		end
+
+	end  
 end
 
