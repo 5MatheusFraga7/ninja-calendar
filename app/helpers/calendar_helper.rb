@@ -22,4 +22,21 @@ module CalendarHelper
 
     end
 
+    def room_is_empty_in_this_period?(starts_at, ends_at, room_id)
+
+        meet = Meeting.where("starts_at BETWEEN :starts_at and :ends_at or ends_at BETWEEN :starts_at and :ends_at", { starts_at: starts_at, ends_at: ends_at })
+                      .where("room_id="+room_id.to_s)
+        
+        if (meet.count > 0)
+ 
+         false
+ 
+        else
+ 
+         true
+ 
+        end
+ 
+     end
+
 end

@@ -12,7 +12,9 @@ Calendar.prototype = {
 
     create: function() {
 
-        $("body").html("")
+        var _this = this;
+
+        $("body").html("");
 
         this.header_calendar = $( '<div/>', { class: 'header_calendar' });
         $("body").append(this.header_calendar);
@@ -20,10 +22,39 @@ Calendar.prototype = {
         this.container = $( '<div/>', { class: 'container_calendar' });
         $("body").append(this.container);
 
-        this.drawHeader();
-        this.drawCalendar();
-        this.drawModalDate();
-    },    
+        this.getMeetings(function(data) {
+
+             console.log(data);
+
+            _this.drawHeader();
+            _this.drawCalendar(data.meetings);
+            _this.drawModalDate();
+
+        });
+
+    },  
+    
+    getMeetings: function(func) {
+
+		$.ajax({
+			type : 'GET',
+			url : 'api/v1/manager_calendar',
+			data : {},
+			processData: false, 
+			contentType: false,
+			success : function(data) {
+
+                return func(data);
+			},
+			error: function(data){
+			    console.log("error");
+                console.log(data);
+                
+                return func(data);
+			}
+		}); 
+
+    },
 
     drawHeader: function() {
 
@@ -58,11 +89,11 @@ Calendar.prototype = {
         
     },
 
-    drawCalendar: function() {
+    drawCalendar: function(meetings) {
 
         var _this = this;
 
-        var month_qtd_days     = moment(this.date_to_calendar).endOf('month').format('DD');
+        var month_qtd_days = moment(this.date_to_calendar).endOf('month').format('DD');
 
         var row = $( '<div/>', { class: 'rows', id: 'row_0', text: 'Domingo' });
         this.container.append(row);
@@ -88,24 +119,45 @@ Calendar.prototype = {
         for (let i = 0; i < month_qtd_days; i++) {
 
             var week_day = moment(_this.date_to_calendar).startOf('month').add(i, 'days');
-            var day      = $( '<div/>', { class: 'week_day', text: week_day.format('DD'), id: week_day.format('DD/MM/YYYY')  });
+            var day      = $( '<div/>', { class: 'week_day', text: week_day.format('DD'), id: "id-"+week_day.format('DD/MM/YYYY').replaceAll("/", "_") });
 
             if (week_day.format("DD/MM/YYYY") == moment().format("DD/MM/YYYY")){
 
                 day.addClass("current_day"); 
-
-            }
-
+            }   
+              
             for (let i = 0; i <= 6; i++) {
 
                 if (week_day.weekday() == i) {
 
                     $("#row_"+i).append(day);
 
+                }    
+            } 
+            
+            for (let j = 0; j < meetings.length; j++) {
+
+                if (moment(meetings[j].starts_at).format('DD/MM/YYYY') == week_day.format("DD/MM/YYYY")) {
+                    
+                    if (day.children().size() < 3) {
+
+                        var title       = (meetings[j].title != null) ? meetings[j].title  : 'Reunião';
+                        var meeting_div = $('<div/>', { class: 'meeting_div', text: title });
+
+                        day.append(meeting_div);
+
+                    }
+                    else {
+
+                        day.append('...');
+                        break;
+
+                    }
                 }
                 
-            }       
-        }
+            }            
+            
+        }        
 
         $(".week_day").unbind('click').on('click', function(e) {
 

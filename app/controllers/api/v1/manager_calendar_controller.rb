@@ -53,19 +53,27 @@ class Api::V1::ManagerCalendarController < ApplicationController
 
 				if (have_enough_rooms_for_meeting?(meet.starts_at, meet.ends_at))
 
-					if (meet.save)
+					if (room_is_empty_in_this_period?(meet.starts_at, meet.ends_at, params[:room_id].to_i)) 
 
-						render json: { meet: meet }, status: 201
+						if (meet.save)
+
+							render json: { meet: meet }, status: 201
+	
+						else
+	
+							render json: { status: 'saving_error', errors: meet.errors.full_messages }, status: 500
+	
+						end	
 
 					else
 
-						render json: { status: 'saving_error', errors: meet.errors.full_messages }, status: 500
+						render json: { status: 'this_room_is_full_in_this_period' }, status: 200
 
-					end	
+					end
 
 				else
 
-					render json: { error: 'full_rooms' }, status: 400
+					render json: { error: 'full_rooms' }, status: 200
 
 				end			
 

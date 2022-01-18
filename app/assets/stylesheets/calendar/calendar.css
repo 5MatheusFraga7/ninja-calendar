@@ -52,6 +52,19 @@ label {
     cursor: pointer;
 }
 
+.meeting_div {
+    position: relative;
+    height: auto;
+    background: #5c5470;
+    color: #f0f8fe;
+    margin-top: 5px;
+    width: 60%;
+    margin-left: 5px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 13px;
+}
+
 .date_label {
     width: auto;
     position: relative;
@@ -144,3 +157,4 @@ label {
 .btn_save_meeting {
     background: #5c5470;
 }
+
