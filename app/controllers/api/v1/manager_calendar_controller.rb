@@ -15,7 +15,7 @@ class Api::V1::ManagerCalendarController < ApplicationController
 
 	def show
 
-		if	(params[:id].present? && params[:id].is_a?(Integer)) 
+		if (params[:id].present? && params[:id].is_a?(Integer)) 
 
 			meet = Meeting.where("id="+params[:id].to_s).first
 
@@ -55,8 +55,6 @@ class Api::V1::ManagerCalendarController < ApplicationController
 
 					if (meet.save)
 
-						puts meet.inspect
-
 						render json: { meet: meet }, status: 201
 
 					else
@@ -86,6 +84,34 @@ class Api::V1::ManagerCalendarController < ApplicationController
 	end
 
 	def update
+
+		if (params[:id].present? && (params[:id].to_i > 0)) 
+
+				meet = Meeting.where(id: params[:id].to_i).first
+
+				if (meet.present?)
+
+					if (meet.update_attributes(params.require(:meet).permit(:title, :starts_at, :ends_at, :description, :room_id)))
+
+						render json: meet, status: 200 
+			
+					else
+			
+						render json: { errors: meet.errors }, status: 422 
+			
+					end
+
+				else
+
+					render json: { errors: 'meeting_not_found' }, status: 404
+
+				end
+
+		else
+
+			render json: { errors: 'meeting_not_found' }, status: 404
+		
+		end
 
 	end
 

@@ -43,7 +43,19 @@ RSpec.describe "Manager calendar API", type: :request do
             expect((Meeting.where("starts_at BETWEEN :starts_at and :ends_at or ends_at BETWEEN :starts_at and :ends_at", { starts_at: meeting.starts_at, ends_at: meeting.ends_at }).count) > 4).not_to be_truthy
         end
 
-	end    
+    end  
+    
+    describe 'PUT /manager_calendar' do 
+
+		before do 
+			put "/api/v1/manager_calendar/#{Meeting.first.id}", params: { meet: { title: 'New Meeting Title', starts_at: Time.now.beginning_of_day + 15.hour } }
+		end    
+
+        it 'returns status code 200' do 
+            expect(response).to have_http_status(200)
+        end    
+
+	end  
 
 end
 
