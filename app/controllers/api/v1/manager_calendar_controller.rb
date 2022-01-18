@@ -39,15 +39,15 @@ class Api::V1::ManagerCalendarController < ApplicationController
 
 	def create 
 
-		if (params[:title].present? && params[:room_id].present? && params[:starts_at].present? && params[:ends_at].present?)  
+		if (params[:title].present? && params[:room_id].present?)  
 			
 			meet = Meeting.new
 			
 			meet.title   = params[:title]
 			meet.room_id = params[:room_id].to_i
 
-			meet.starts_at = Time.parse(params[:starts_at].to_s)
-			meet.ends_at   = Time.parse(params[:ends_at].to_s)
+			meet.starts_at = Time.parse(params[:scheduler_at].to_s).beginning_of_day - 3.hour + (params[:starts_at_hour].to_i).hour + (params[:starts_at_minutes].to_i).minutes 
+			meet.ends_at   = Time.parse(params[:scheduler_at].to_s).beginning_of_day - 3.hour + (params[:ends_at_hour].to_i).hour + (params[:ends_at_minutes].to_i).minutes
 
 			if (period_is_inside_on_busines_hour?(meet.starts_at, meet.ends_at))
 
